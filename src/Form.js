@@ -225,7 +225,7 @@ export default function Form() {
                     />
                 </label>
                 </div>
-                <button disabled={buttonDisabled}>Submit Order</button>
+                <button disabled={buttonDisabled}>Add to Order</button>
                 <pre>{JSON.stringify(orders, null, 2)}</pre>
         </form>
 
