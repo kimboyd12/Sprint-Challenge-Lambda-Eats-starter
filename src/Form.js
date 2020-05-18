@@ -5,9 +5,15 @@ import * as yup from "yup";
 
 // validation schema
 const formSchema = yup.object().shape({
-    name: yup.string().required(),
-    size: yup.string(),
-    toppings: yup.boolean()
+    name: yup.string().min(2, "Name must be at least 2 characters").required("Please enter your name"),
+    size: yup.string().required("Please choose a size"),
+    sauce: yup.string().required("Please choose a sauce"),
+    pepperoni: yup.string(),
+    sausage: yup.string(),
+    onions: yup.string(),
+    jalepenos: yup.string(),
+    bellpeppers: yup.string(),
+    instructions: yup.string()
 })
 
 
@@ -24,15 +30,67 @@ export default function Form() {
 
     const [formState, setFormState] = useState(initialState);
     const [errorState, setErrorState] = useState(initialState);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+
+
+    useEffect(() => {
+        formSchema.isValid(formState).then(valid => {
+            setButtonDisabled(!valid);
+        });
+    }, [formState]);
+
+    const validate = e => {
+        yup
+            .reach(formSchema, e.target.name)
+            .validate(e.target.value)
+            .then(valid => {
+                setErrorState({
+                    ...errorState, [e.target.name]: ""
+                });
+            })
+            .catch(err => {
+                console.log(err.errors);
+                setErrorState({
+                    ...errorState,
+                    [e.target.name]: err.errors[0]
+                });
+            });
+    };
 
 
     const changeHandler = e => {
         e.persist();
-        // add validation
+
+        console.log("change input")
+
+        const  newFormData = {
+            ...formState, [e.target.name] :
+            e.target.type === "checkbox" ? e.target.checked : e.target.value };
+
+            validate(e);
+            setFormState(newFormData);
+    };
+
+
+
+    const [orders, setOrders] = useState([]);
+
+    const formSubmit = (e) => {
+        e.preventDefault();
+        console.log("Order Submitted!");
+
+        axios
+            .post("https://reqres.in/api/users", formState)
+            .then((response) => {
+                setOrders([...orders, response.data]);
+                setFormState(initialState);
+                console.log(response);
+            })
+            .catch((err) => console.log(err.response));
     }
 
     return (
-        <form>
+        <form onSubmit={formSubmit}>
             <h1>Build Your Own Pizza</h1>
                 <label htmlFor="name">
                     Name:
@@ -43,6 +101,7 @@ export default function Form() {
                         value={formState.name}
                         onChange={changeHandler}
                         />
+                        {errorState.name.length > 0 ?(<p className="error">{errorState.name}</p>) : null}
                 </label>
                 <div className="size">
                  <h3>Choose Your Size</h3>
@@ -58,6 +117,7 @@ export default function Form() {
                         <option value="medium">Medium...14 inch</option>
                         <option value="large">Large...16 inch</option>
                     </select>
+                    {errorState.name.length > 0 ?(<p className="error">{errorState.size}</p>) : null}
                 </label>
                 </div>
             <div className="sauce"> 
@@ -106,55 +166,58 @@ export default function Form() {
                     />
                         Spinach Alfredo
                 </label>
+                {errorState.name.length > 0 ?(<p className="error">{errorState.sauce}</p>) : null}
                 </div>
+
+
                 <div className="toppings">
                 <h3>Add Toppings</h3>
-                <label htmlFor="toppings">
+                <label htmlFor="pepperoni">
                     <input 
                         type="checkbox"
-                        id="pepperoni"
+                        value="pepperoni"
                         name="pepperoni"
-                        checked={formState.toppings}
+                        checked={formState.pepperoni}
                         onChange={changeHandler}
                     />
                     Pepperoni
                 </label>
-                <label htmlFor="toppings">
+                <label htmlFor="sausage">
                     <input 
                         type="checkbox"
-                        id="sausage"
+                        value="sausage"
                         name="sausage"
-                        checked={formState.toppings}
+                        checked={formState.sausage}
                         onChange={changeHandler}
                     />
                     Sausage
                 </label>
-                <label htmlFor="toppings">
+                <label htmlFor="jalepenos">
                     <input 
                         type="checkbox"
-                        id="jalapeno"
-                        name="jalapeno"
-                        checked={formState.toppings}
+                        value="jalapenos"
+                        name="jalepenos"
+                        checked={formState.jalepenos}
                         onChange={changeHandler}
                     />
                     Jalapeños
                 </label>
-                <label htmlFor="toppings">
+                <label htmlFor="onions">
                     <input 
                         type="checkbox"
-                        id="onion"
-                        name="onion"
-                        checked={formState.toppings}
+                        value="onions"
+                        name="onions"
+                        checked={formState.onions}
                         onChange={changeHandler}
                     />
                     Onions
                 </label>
-                <label htmlFor="toppings">
+                <label htmlFor="bellpeppers">
                     <input 
                         type="checkbox"
-                        id="bellpeppers"
+                        value="bellpeppers"
                         name="bellpeppers"
-                        checked={formState.toppings}
+                        checked={formState.bellpeppers}
                         onChange={changeHandler}
                     />
                     Bell Peppers
@@ -173,7 +236,8 @@ export default function Form() {
                     />
                 </label>
                 </div>
-                <button>Submit Order</button>
+                <button disabled={buttonDisabled}>Submit Order</button>
+                <pre>{JSON.stringify(orders, null, 2)}</pre>
         </form>
 
     )
