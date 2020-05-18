@@ -7,12 +7,14 @@ import * as yup from "yup";
 const formSchema = yup.object().shape({
     name: yup.string().min(2, "Name must be at least 2 characters").required("Please enter your name"),
     size: yup.string().required("Please choose a size"),
-    sauce: yup.string().required("Please choose a sauce"),
-    pepperoni: yup.string(),
-    sausage: yup.string(),
-    onions: yup.string(),
-    jalepenos: yup.string(),
-    bellpeppers: yup.string(),
+    original: yup.boolean(),
+    garlic: yup.boolean(),
+    spinach: yup.boolean(),
+    pepperoni: yup.boolean(),
+    sausage: yup.boolean(),
+    onions: yup.boolean(),
+    jalepenos: yup.boolean(),
+    bellpeppers: yup.boolean(),
     instructions: yup.string()
 })
 
@@ -23,8 +25,6 @@ export default function Form() {
     const initialState = {
         name: "",
         size: "",
-        sauce: "",
-        toppings: "",
         instructions: ""
     };
 
@@ -122,45 +122,34 @@ export default function Form() {
                 </div>
             <div className="sauce"> 
                 <h3>Choose Your Sauce:</h3>
-                <label htmlFor="sauce">
+                <label htmlFor="original">
                     <input 
-                        type="radio"
-                        name="sauce"
-                        id="sauce"
-                        checked={formState.sauce}
+                        type="checkbox"
+                        name="original"
+                        id="original"
+                        checked={formState.original}
                         onChange={changeHandler}
                         value="original"
                     />
                         Original Red
                 </label>
-                <label htmlFor="sauce">
+                <label htmlFor="garlic">
                     <input 
-                        type="radio"
-                        name="sauce"
-                        id="sauce"
-                        checked={formState.sauce}
+                        type="checkbox"
+                        name="garlic"
+                        id="garlic"
+                        checked={formState.garlic}
                         onChange={changeHandler}
                         value="garlic"
                     />
                         Garlic Ranch
                 </label>
-                <label htmlFor="sauce">
+                <label htmlFor="spinach">
                     <input 
-                        type="radio"
-                        name="sauce"
-                        id="sauce"
-                        checked={formState.sauce}
-                        onChange={changeHandler}
-                        value="bbq"
-                    />
-                        BBQ Sauce
-                </label>
-                <label htmlFor="sauce">
-                    <input 
-                        type="radio"
-                        name="sauce"
-                        id="sauce"
-                        checked={formState.sauce}
+                        type="checkbox"
+                        name="spinach"
+                        value="spinach"
+                        checked={formState.spinach}
                         onChange={changeHandler}
                         value="spinach"
                     />
