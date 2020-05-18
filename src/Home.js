@@ -5,7 +5,7 @@ export default function Home() {
     return (
         <div className="header">
             <h1>Lambda Eats</h1>
-                <Link to="/order">
+                <Link to="/pizza">
                     <button>Order Now!!!</button>
                 </Link>
         </div>
