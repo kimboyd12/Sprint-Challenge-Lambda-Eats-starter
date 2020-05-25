@@ -1,13 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import NavBar from "./Nav";
 
 export default function Home() {
     return (
-        <div className="header">
-            <h1>Lambda Eats</h1>
-                <Link to="/pizza">
-                    <button>Order Now!!!</button>
-                </Link>
+        <div>
+            Order
         </div>
     )
 }

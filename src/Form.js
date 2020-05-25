@@ -24,6 +24,7 @@ const PizzaForm = styled.form`
     margin: 0 auto;
     font-family: 'Roboto';
     margin-top: 30px;
+    margin-bottom: 30px;
 `
 
 const SaucesToppings = styled.div`
@@ -80,11 +81,12 @@ const Button = styled.button`
     margin-top: 20px;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 30px;
 `
 
 // validation schema
 const formSchema = yup.object().shape({
-    name: yup.string().min(2, "Name must be at least 2 characters").required("Please enter your name"),
+    // name: yup.string().min(2, "Name must be at least 2 characters").required("Please enter your name"),
     size: yup.string().required("Please choose a size"),
     original: yup.boolean(),
     garlic: yup.boolean(),
@@ -325,6 +327,7 @@ export default function Form() {
                 <Button disabled={buttonDisabled}>Add to Order</Button>
                 {/* <pre>{JSON.stringify(orders, null, 2)}</pre> */}
         </PizzaForm>
+
 
     )
 }
