@@ -1,7 +1,86 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as yup from "yup";
+import styled from "styled-components";
 
+const Error = styled.p`
+    color: red;
+    font-size: 0.8rem;
+`
+
+const Header = styled.h2`
+    font-size: 1.4rem;
+    display: flex;
+    font-family: 'Montserrat';
+    padding-left: 15px;
+    margin-bottom: -10px;
+`
+
+const PizzaForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    border: 1px solid grey;
+    margin: 0 auto;
+    font-family: 'Roboto';
+    margin-top: 30px;
+`
+
+const SaucesToppings = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 135px;
+    justify-content: space-around;
+    padding-left: 15px;
+`
+
+const CatHeads = styled.h4`
+    font-size: 1rem;
+    width: 97.4%;
+    background-color: lightgrey;
+    padding: 15px;
+    margin-top: 40px;
+    height: 30px;
+
+`
+
+const Para = styled.p`
+    font-size: 0.8rem;
+    color: red;
+    margin-top: -44px;
+    padding-left: 16px;
+`
+
+const Instructions = styled.textarea`
+    width: 97%;
+    resize: none;
+    border-radius: 5px;
+    height: 75px;
+    margin-left: 12px;
+    font-size: .9rem;
+`
+
+const Size = styled.select`
+    font-size: 1rem;
+    margin-left: 15px;
+    margin-top: 25px;
+    margin-bottom: -10px;
+    width: 250px;
+    border-radius: 2px;
+    border: 1px solid black;
+    background-color: transparent;
+    height: 30px;
+`
+
+const Button = styled.button`
+    font-size: 1rem;
+    width: 97.5%;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+`
 
 // validation schema
 const formSchema = yup.object().shape({
@@ -9,6 +88,7 @@ const formSchema = yup.object().shape({
     size: yup.string().required("Please choose a size"),
     original: yup.boolean(),
     garlic: yup.boolean(),
+    bbq: yup.boolean(),
     spinach: yup.boolean(),
     pepperoni: yup.boolean(),
     sausage: yup.boolean(),
@@ -90,38 +170,30 @@ export default function Form() {
     }
 
     return (
-        <form onSubmit={formSubmit}>
-            <h1>Build Your Own Pizza</h1>
-                <label htmlFor="name">
-                    Name:
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        value={formState.name}
-                        onChange={changeHandler}
-                        />
-                        {errorState.name.length > 0 ?(<p className="error">{errorState.name}</p>) : null}
-                </label>
+        <PizzaForm onSubmit={formSubmit}>
+            <Header>Build Your Own Pizza</Header>
                 <div className="size">
-                 <h3>Choose Your Size</h3>
+                <CatHeads>Choice of Size</CatHeads>
+                <Para>Required</Para>
                 <label htmlFor="size">
-                    <select
+                    <Size
                         name="size"
                         id="size"
                         value={formState.size}
                         onChange={changeHandler}
                     >
-                        <option value="">Select pizza size...</option>
+                        <option value="">Select a size...</option>
                         <option value="small">Small...10 inch</option>
                         <option value="medium">Medium...14 inch</option>
                         <option value="large">Large...16 inch</option>
-                    </select>
-                    {errorState.name.length > 0 ?(<p className="error">{errorState.size}</p>) : null}
+                    </Size>
+                    {errorState.name.length > 0 ?(<Error className="error">{errorState.size}</Error>) : null}
                 </label>
                 </div>
-            <div className="sauce"> 
-                <h3>Choose Your Sauce:</h3>
+
+                <CatHeads>Choose Your Sauce</CatHeads>
+                <Para>Required</Para>
+            <SaucesToppings> 
                 <label htmlFor="original">
                     <input 
                         type="checkbox"
@@ -144,6 +216,17 @@ export default function Form() {
                     />
                         Garlic Ranch
                 </label>
+                <label htmlFor="bbq">
+                    <input 
+                        type="checkbox"
+                        name="bbq"
+                        id="bbq"
+                        checked={formState.bbq}
+                        onChange={changeHandler}
+                        value="bbq"
+                    />
+                        BBQ Sauce
+                </label>
                 <label htmlFor="spinach">
                     <input 
                         type="checkbox"
@@ -155,12 +238,14 @@ export default function Form() {
                     />
                         Spinach Alfredo
                 </label>
-                {errorState.name.length > 0 ?(<p className="error">{errorState.sauce}</p>) : null}
-                </div>
+                {errorState.name.length > 0 ?(<Error className="error">{errorState.sauce}</Error>) : null}
+                </SaucesToppings>
 
 
                 <div className="toppings">
-                <h3>Add Toppings</h3>
+                <CatHeads>Add Toppings</CatHeads>
+                <Para>Choose up to 5</Para>
+                <SaucesToppings>
                 <label htmlFor="pepperoni">
                     <input 
                         type="checkbox"
@@ -211,23 +296,35 @@ export default function Form() {
                     />
                     Bell Peppers
                 </label>
+                </SaucesToppings>
                 </div>
                 <div className="instructions"> 
-                <h3>Special Instructions?</h3>
+                <CatHeads>Special Instructions?</CatHeads>
                 <label htmlFor="instructions">
-                    <input 
+                    <Instructions 
                         type="text"
                         id="instructions"
                         name="instructions"
                         value={formState.instructions}
                         onChange={changeHandler}
-                        placeholder="Anything else you would like to add?"    
+                        placeholder="Anything else you'd like to add?"    
                     />
                 </label>
+                {/* <label htmlFor="name">
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        value={formState.name}
+                        onChange={changeHandler}
+                        placeholder="Full Name"
+                        />
+                        {errorState.name.length > 0 ?(<Error className="error">{errorState.name}</Error>) : null}
+                </label> */}
                 </div>
-                <button disabled={buttonDisabled}>Add to Order</button>
-                <pre>{JSON.stringify(orders, null, 2)}</pre>
-        </form>
+                <Button disabled={buttonDisabled}>Add to Order</Button>
+                {/* <pre>{JSON.stringify(orders, null, 2)}</pre> */}
+        </PizzaForm>
 
     )
 }
