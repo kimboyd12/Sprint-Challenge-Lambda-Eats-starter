@@ -25,7 +25,7 @@ const Header1 = styled.h1`
 const Navbar = styled.div`
     height: 60px;
     display: flex;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     align-items: center;
 `
 
@@ -82,15 +82,42 @@ export default function NavBar() {
             </NavLink>
 
             <NavLink 
-            to="/"
+            to="/login"
+            style={{
+                color: "limegreen",
+                textDecoration: "none",
+                paddingRight: "30px",
+                fontSize: "1.2rem"
+            }}
             activeStyle={{
                 color: "limegreen",
                 textDecoration: "none",
-                paddingRight: "0px",
+                paddingRight: "30px",
                 fontSize: "1.2rem",
             }}
             >
                 Sign In
+            </NavLink>
+            <NavLink 
+            to="/signup"
+            style={{
+                color: "limegreen",
+                textDecoration: "none",
+                padding: "7px",
+                fontSize: "1.2rem",
+                border: "1.5px solid black",
+                borderRadius: "3px"
+            }}
+            activeStyle={{
+                color: "limegreen",
+                textDecoration: "none",
+                padding: "7px",
+                fontSize: "1.2rem",
+                border: "1px solid black",
+                borderRadius: "3px"
+            }}
+            >
+                Sign Up
             </NavLink>
 
            </Links> 

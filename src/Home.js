@@ -44,10 +44,20 @@ const Container = styled.div`
 
 `
 
+const HeaderContainer = styled.div`
+    height: 75px;
+    background-color: hsl(120, 61%, 70%);
+    margin-bottom: 90px;
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+`
+
 const Header = styled.h2`
     margin: 0 auto;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
     font-size: 2rem;
+    color: white;
     
 `
 
@@ -58,7 +68,9 @@ export default function Home() {
     return (
 
 <Container>
-    <Header>Go ahead, explore your options...</Header>
+    <HeaderContainer>
+    <Header>explore by type</Header>
+    </HeaderContainer>
     <CardContainer>
         <Card>
             <Image src={Asian} />
