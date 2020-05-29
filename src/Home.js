@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Asian from "./Assets/asian.jpg";
 import Indian from "./Assets/indian.jpg";
 import Italian from "./Assets/italian.jpg";
+import Sushi from "./Assets/sushi.jpg";
+import Mexican from "./Assets/mexican.jpg";
+import Vegetarian from "./Assets/vegetarian.jpg"
 
 const CardContainer = styled.div`
     display: flex;
@@ -10,6 +13,7 @@ const CardContainer = styled.div`
     justify-content: space-between;
     width: 80%;
     margin: 0 auto;
+    margin-bottom: 60px;
 `
 const Card = styled.div`
     width: 350px;
@@ -19,6 +23,11 @@ const Card = styled.div`
 const Image = styled.img`
     width: 350px;
     height: 200px;
+    border-radius: 2px;
+    &:hover {
+        transform: scale(1.1);
+        transition: 0.2s all ease-in-out;
+    }
 `
 const TagDiv = styled.div`
     display: flex;
@@ -42,7 +51,10 @@ const Header = styled.h2`
     
 `
 
+
 export default function Home() {
+
+    
     return (
 
 <Container>
@@ -51,7 +63,28 @@ export default function Home() {
         <Card>
             <Image src={Asian} />
             <TagDiv>
-            <Tag>Asian</Tag>
+            <Tag>Chinese</Tag>
+            </TagDiv>
+        </Card>
+        <Card>
+            <Image src={Vegetarian} />
+            <TagDiv>
+            <Tag>Vegetarian</Tag>
+            </TagDiv>
+        </Card>
+        <Card>
+            <Image src={Italian} />
+            <TagDiv>
+            <Tag>Italian</Tag>
+            </TagDiv>
+        </Card>
+    </CardContainer>
+
+    <CardContainer>
+        <Card>
+            <Image src={Mexican} />
+            <TagDiv>
+            <Tag>Mexican</Tag>
             </TagDiv>
         </Card>
         <Card>
@@ -61,9 +94,9 @@ export default function Home() {
             </TagDiv>
         </Card>
         <Card>
-            <Image src={Italian} />
+            <Image src={Sushi} />
             <TagDiv>
-            <Tag>Italian</Tag>
+            <Tag>Japanese</Tag>
             </TagDiv>
         </Card>
     </CardContainer>

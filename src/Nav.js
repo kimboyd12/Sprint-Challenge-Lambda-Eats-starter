@@ -84,13 +84,13 @@ export default function NavBar() {
             <NavLink 
             to="/"
             activeStyle={{
-                color: "black",
+                color: "limegreen",
                 textDecoration: "none",
                 paddingRight: "0px",
-                fontSize: "1.2rem"
+                fontSize: "1.2rem",
             }}
             >
-                Contact
+                Sign In
             </NavLink>
 
            </Links> 

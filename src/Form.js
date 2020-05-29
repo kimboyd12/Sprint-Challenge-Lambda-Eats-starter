@@ -85,7 +85,7 @@ const Button = styled.button`
 `
 const PizzaPic = styled.img`
     width: 60%;
-    height: 225px;
+    height: 300px;
     margin-left: 286px;
 `
 const PizzaDiv = styled.div`
