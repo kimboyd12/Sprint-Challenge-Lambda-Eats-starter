@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as yup from "yup";
 import styled from "styled-components";
-
+import Pizza from "./Assets/Pizza.jpg";
 const Error = styled.p`
     color: red;
     font-size: 0.8rem;
@@ -19,7 +19,7 @@ const Header = styled.h2`
 const PizzaForm = styled.form`
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 60%;
     border: 1px solid grey;
     margin: 0 auto;
     font-family: 'Roboto';
@@ -38,7 +38,7 @@ const SaucesToppings = styled.div`
 
 const CatHeads = styled.h4`
     font-size: 1rem;
-    width: 97.4%;
+    width: 96.5%;
     background-color: lightgrey;
     padding: 15px;
     margin-top: 40px;
@@ -82,6 +82,14 @@ const Button = styled.button`
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 30px;
+`
+const PizzaPic = styled.img`
+    width: 60%;
+    height: 225px;
+    margin-left: 286px;
+`
+const PizzaDiv = styled.div`
+    margin: 0 auto;
 `
 
 // validation schema
@@ -172,6 +180,8 @@ export default function Form() {
     }
 
     return (
+        <PizzaDiv>
+            <PizzaPic src={Pizza} />
         <PizzaForm onSubmit={formSubmit}>
             <Header>Build Your Own Pizza</Header>
                 <div className="size">
@@ -328,6 +338,6 @@ export default function Form() {
                 {/* <pre>{JSON.stringify(orders, null, 2)}</pre> */}
         </PizzaForm>
 
-
+        </PizzaDiv>
     )
 }
