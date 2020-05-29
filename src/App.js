@@ -9,7 +9,7 @@ const App = () => {
     <div className="App">
         <NavBar />
         <Route exact path="/" component={Home} />
-        <Route path="/pizza" component={Form} />
+        <Route exact path="/form" component={Form} />
     </div>
   );
 };

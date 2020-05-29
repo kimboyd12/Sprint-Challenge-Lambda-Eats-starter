@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import Form from "./Form";
 import Home from "./Home";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, Redirect } from "react-router-dom";
 
 const Header = styled.h1`
     display:flex;
@@ -35,8 +35,8 @@ const Links = styled.div`
     width: 70%;
     align-items: center;
     margin-top: 10px;
-`
 
+`
 
 export default function NavBar() {
     return (
@@ -46,6 +46,12 @@ export default function NavBar() {
            <Links>
            <NavLink 
             to="/"
+            style={{
+                color: "black",
+                textDecoration: "none",
+                paddingRight: "40px",
+                fontSize: "1.2rem"
+            }}
             activeStyle={{
                 color: "black",
                 textDecoration: "none",
@@ -58,7 +64,13 @@ export default function NavBar() {
             </NavLink>
 
             <NavLink 
-            to="/pizza"
+            to="/form"
+            style={{
+                color: "black",
+                textDecoration: "none",
+                paddingRight: "40px",
+                fontSize: "1.2rem"
+            }}
             activeStyle={{
                 color: "black",
                 textDecoration: "none",
